@@ -6,18 +6,18 @@ An AI-powered Sales Business Intelligence Assistant that converts natural-langua
 
 The Business Intelligence Assistant enables users to analyze sales data by asking questions in plain English instead of writing SQL queries.
 
-It uses Gemini to understand user questions and generate structured query plans. The backend validates these plans and executes SQL queries against a SQLite database to produce accurate, data-driven results.
+Gemini interprets user questions and generates structured query plans. The backend validates these plans and executes SQL queries against a SQLite database to produce accurate, data-driven results.
 
 ## Key Features
 
 - **Natural Language Queries:** Ask sales-related questions in plain English.
-- **Dynamic Query Understanding:** Interpret different question formats and identify relevant metrics, filters, and grouping dimensions.
+- **Dynamic Query Understanding:** Identify relevant metrics, filters, and grouping dimensions.
 - **Sales Analytics:** Analyze revenue, quantity, transactions, average order value, unit price, and discounts.
-- **Comparative Analysis:** Compare sales performance across products, categories, regions, and sales channels.
-- **Record Retrieval:** Retrieve individual sales records based on user-defined conditions.
-- **Interactive Visualizations:** Display analytical results using interactive Plotly charts.
+- **Comparative Analysis:** Compare performance across products, categories, regions, and sales channels.
+- **Record Retrieval:** Retrieve individual sales records using specified conditions.
+- **Interactive Visualizations:** Display results using Plotly charts.
 - **Data Export:** Download query results as CSV files.
-- **Validated SQL Execution:** Use structured query plans, validation, and parameterized SQL to keep numerical results grounded in the database.
+- **Validated SQL Execution:** Use structured query plans, validation, and parameterized SQL to ensure numerical results come from the database.
 
 ## Technology Stack
 
@@ -30,48 +30,49 @@ It uses Gemini to understand user questions and generate structured query plans.
 | Data Processing | Python, Pandas |
 | Visualization | Plotly |
 | API Communication | REST API |
+| Development & Analysis | Jupyter Notebook |
 
 ## Architecture
 
 ```text
-          User Question
-                |
-                v
-       Streamlit Frontend
-                |
-                v
-         FastAPI Backend
-                |
-                v
-         Google Gemini
-       (Query Interpretation)
-                |
-                v
-       Structured Query Plan
-                |
-                v
-       Python Validation
-                |
-                v
-        SQLite Database
-       (SQL Execution)
-                |
-                v
-       Analytical Results
-                |
-                v
-       Answer + Visualization
-                |
-                v
-        Streamlit Frontend
+        User Question
+              |
+              v
+      Streamlit Frontend
+              |
+              v
+       FastAPI Backend
+              |
+              v
+        Google Gemini
+     (Query Interpretation)
+              |
+              v
+     Structured Query Plan
+              |
+              v
+      Python Validation
+              |
+              v
+       SQLite Database
+        (SQL Execution)
+              |
+              v
+      Analytical Results
+              |
+              v
+    Answer + Visualization
+              |
+              v
+      Streamlit Frontend
 ```
 
-**Design Principle:** Gemini interprets the question, while validated SQL queries perform the actual calculations. This helps ensure that numerical results come from the underlying dataset rather than AI-generated estimates.
+**Design Principle:** Gemini interprets the question, while validated SQL queries perform the actual calculations. Numerical results are grounded in the underlying dataset rather than AI-generated estimates.
 
 ## Project Structure
 
 ```text
-RSG-GET-Assessment/
+BusinessIntelligenceAssistant/
 │
 ├── backend/
 │   └── main.py
@@ -82,10 +83,12 @@ RSG-GET-Assessment/
 ├── database/
 │   └── sales.db
 │
+├── AI Business Intelligence Assistant.ipynb
 ├── test_bi.py
 ├── test_gemini.py
 ├── requirements.txt
 ├── .env
+├── .gitignore
 └── README.md
 ```
 
@@ -138,17 +141,13 @@ Replace the placeholder with your Google Gemini API key.
 uvicorn backend.main:app --reload
 ```
 
-Backend API:
+Backend: `http://127.0.0.1:8000`
 
-`http://127.0.0.1:8000`
-
-API documentation:
-
-`http://127.0.0.1:8000/docs`
+API documentation: `http://127.0.0.1:8000/docs`
 
 ### 6. Run the frontend
 
-Open another terminal, activate the virtual environment, and run:
+Open another terminal, activate the virtual environment, and execute:
 
 ```bash
 streamlit run frontend/app.py
@@ -156,13 +155,21 @@ streamlit run frontend/app.py
 
 The application will open in your browser.
 
-## Example Questions
+## Jupyter Notebook
 
-Try asking:
+The repository also includes `AI Business Intelligence Assistant.ipynb`, which provides a notebook environment for exploring the business intelligence workflow and related data analysis experiments.
+
+Open it using Jupyter Notebook or JupyterLab:
+
+```bash
+jupyter notebook
+```
+
+## Example Questions
 
 - What is the total revenue?
 - Which region generates the highest revenue?
-- Compare revenue across different product categories.
+- Compare revenue across product categories.
 - What is the average order value?
 - Which products have the highest sales?
 - How many transactions were returned?
@@ -173,15 +180,13 @@ Try asking:
 
 ## Testing
 
-The project includes two test scripts:
-
-**Test Gemini API connectivity:**
+Test Gemini API connectivity:
 
 ```bash
 python test_gemini.py
 ```
 
-**Test the BI query-planning functionality:**
+Test BI query-planning functionality:
 
 ```bash
 python test_bi.py
@@ -199,8 +204,8 @@ python test_bi.py
 - Add conversational context for multi-turn queries.
 - Expand analytical capabilities and supported query operations.
 - Implement pagination for large datasets.
-- Add automated unit and integration test coverage.
-- Improve query evaluation, error handling, and performance.
+- Improve automated testing and error handling.
+- Enhance query evaluation and performance.
 
 ## Author
 
